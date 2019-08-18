@@ -79,6 +79,12 @@
   (t/send transport (response-for msg :status #{:error :unknown-op :done} :op op)))
 
 (def default-middlewares
+  "middleware functions vars that are implicitly merged with any user-specified
+   middleware provided to nrepl.server/default-handler
+
+   For new middleware, use the convention `wrap-` prefix.
+   Old names like `add-stdin`, `session` etc,
+   are preserved for backward compatibility"
   [#'nrepl.middleware/wrap-describe
    #'nrepl.middleware.interruptible-eval/interruptible-eval
    #'nrepl.middleware.load-file/wrap-load-file
